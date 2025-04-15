@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -274,6 +274,41 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
     },
+  },
+
+  -- Install alpha-nvim plugin
+  {
+    "goolord/alpha-nvim",
+    config = function()
+      -- Setup alpha-nvim with Gravity Falls theme and custom greeting
+      local alpha = require('alpha')
+      local dashboard = require('alpha.themes.dashboard')
+
+      -- Pictorial ASCII Art greeting for Dipper, properly formatted
+      dashboard.section.header.val = {
+        "",
+        "░▒▓███████▓▒░░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓██████████████▓▒░",  
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░", 
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░", 
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓█▓▒▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░", 
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▓█▓▒░ ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░", 
+        "░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▓█▓▒░ ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░", 
+        "░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░  ░▒▓██▓▒░  ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░", 
+        "",
+        "Welcome, Dipyaman!"
+      }
+
+      -- Custom buttons for actions
+      dashboard.section.buttons.val = {
+        dashboard.button("e", "  New File", ":enew<CR>"),
+        dashboard.button("f", "  Find File", ":Telescope find_files<CR>"),
+        dashboard.button("r", "  Recent Files", ":Telescope oldfiles<CR>"),
+        dashboard.button("q", "  Quit", ":qa<CR>"),
+      }
+
+      -- Apply the custom dashboard
+      alpha.setup(dashboard.config)
+    end
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
