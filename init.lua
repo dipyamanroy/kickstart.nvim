@@ -276,15 +276,12 @@ require('lazy').setup({
     },
   },
 
-  -- Install alpha-nvim plugin
   {
     "goolord/alpha-nvim",
     config = function()
-      -- Setup alpha-nvim with Gravity Falls theme and custom greeting
-      local alpha = require('alpha')
-      local dashboard = require('alpha.themes.dashboard')
-
-      -- Pictorial ASCII Art greeting for Dipper, properly formatted
+      local alpha = require("alpha")
+      local dashboard = require("alpha.themes.dashboard")
+  
       dashboard.section.header.val = {
         "",
         "░▒▓███████▓▒░░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓██████████████▓▒░",  
@@ -297,20 +294,27 @@ require('lazy').setup({
         "",
         "Welcome, Dipyaman!"
       }
-
-      -- Custom buttons for actions
+  
+      -- 🔘 Custom Buttons with modern styling
       dashboard.section.buttons.val = {
-        dashboard.button("e", "  New File", ":enew<CR>"),
-        dashboard.button("f", "  Find File", ":Telescope find_files<CR>"),
-        dashboard.button("r", "  Recent Files", ":Telescope oldfiles<CR>"),
-        dashboard.button("q", "  Quit", ":qa<CR>"),
+        dashboard.button("n", "📝  New File", ":enew<CR>"),
+        dashboard.button("f", "🔍  Find File", ":Telescope find_files<CR>"),
+        dashboard.button("r", "📁  Recent Files", ":Telescope oldfiles<CR>"),
+        dashboard.button("c", "⚙️   Edit Config", ":e $MYVIMRC<CR>"),
+        dashboard.button("l", "  Plugin Manager", ":Lazy<CR>"),
+        dashboard.button("q", "👋  Quit", ":qa<CR>"),
       }
-
-      -- Apply the custom dashboard
-      alpha.setup(dashboard.config)
+  
+      dashboard.section.footer.val = {
+        "",
+        "💡 Tip: Trust no one... except your config.",
+      }
+  
+      dashboard.opts.opts.noautocmd = true
+      alpha.setup(dashboard.opts)
     end
   },
-
+  
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -489,6 +493,7 @@ require('lazy').setup({
     end,
   },
 
+  
   -- LSP Plugins
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
